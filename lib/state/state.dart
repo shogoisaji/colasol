@@ -9,21 +9,21 @@ part 'state.g.dart';
 class SelectedColors extends _$SelectedColors {
   @override
   Map<String, Color> build() => {
-        'color1': Colors.white,
-        'color2': Colors.white,
-        'color3': Colors.white,
-        'color4': Colors.white,
-        'color5': Colors.white,
+        'color1': Colors.black.withOpacity(0.0),
+        'color2': Colors.black.withOpacity(0.025),
+        'color3': Colors.black.withOpacity(0.05),
+        'color4': Colors.black.withOpacity(0.075),
+        'color5': Colors.black.withOpacity(0.1),
       };
 
   void setColor(String index, Color color) => state[index] = color;
 
   void resetColor() => state = {
-        'color1': Colors.white,
-        'color2': Colors.white,
-        'color3': Colors.white,
-        'color4': Colors.white,
-        'color5': Colors.white,
+        'color1': Colors.black.withOpacity(0.0),
+        'color2': Colors.black.withOpacity(0.025),
+        'color3': Colors.black.withOpacity(0.05),
+        'color4': Colors.black.withOpacity(0.075),
+        'color5': Colors.black.withOpacity(0.1),
       };
 }
 

@@ -41,8 +41,7 @@ class MainPage extends ConsumerWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32), color: MyTheme.blueGrey),
         child: Visibility(
-          visible: ref.watch(bottomNavigationBarIndexProvider) == 0 ||
-              ref.watch(bottomNavigationBarIndexProvider) == 1,
+          visible: ref.watch(bottomNavigationBarIndexProvider) == 0,
           child: FloatingActionButton(
             hoverColor: Colors.transparent,
             hoverElevation: 0,
@@ -86,7 +85,7 @@ class MainPage extends ConsumerWidget {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 40 + (MediaQuery.of(context).size.width / 50),
+              height: 60,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
@@ -98,42 +97,43 @@ class MainPage extends ConsumerWidget {
                             .setColor('color${index + 1}', color);
                       },
                       builder: (context, candidateData, rejectedData) =>
-                          // gradation border container
                           Container(
                         width: MediaQuery.of(context).size.width / 5,
-                        padding: const EdgeInsets.all(1.5),
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.grey,
-                              Colors.black54,
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                          color: ref.watch(
+                              selectedColorsProvider)['color${index + 1}'],
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: ref.watch(
-                                selectedColorsProvider)['color${index + 1}'],
-                          ),
-                          child: Align(
-                              alignment: const Alignment(0.7, 0.5),
-                              child: Transform.rotate(
-                                angle: -0.2,
-                                child: Text(
-                                  'color${index + 1}',
-                                ),
-                              )),
-                        ),
+                        child: Align(
+                            alignment: const Alignment(0.7, 0.5),
+                            child: Transform.rotate(
+                              angle: -0.2,
+                              child: Text(
+                                'color${index + 1}',
+                              ),
+                            )),
                       ),
                     );
                   }),
             ),
+            Container(
+                width: double.infinity,
+                height: 2,
+                decoration: BoxDecoration(
+                    // border: Border(
+                    // top: BorderSide(color: Colors.white, width: 0.5),
+                    // ),
+                    gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(0.3),
+                    Colors.white.withOpacity(0.3)
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ))),
             Expanded(
               child: PageView(controller: _pageViewController, children: [
                 ColorSelectPage(),
-                ColorListPagge(),
+                ColorListPage(),
                 ColorTestPagge(),
                 SettingPage(),
               ]),
