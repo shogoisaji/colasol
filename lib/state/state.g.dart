@@ -39,7 +39,7 @@ final bottomNavigationBarIndexProvider =
 );
 
 typedef _$bottomNavigationBarIndex = AutoDisposeNotifier<int>;
-String _$scaleStateHash() => r'b29ee15b46c747f9bff89035144fa2610293ef45';
+String _$scaleStateHash() => r'918df0d78467b3ea302c6e1a97c72e3b6ab99ad2';
 
 /// See also [scaleState].
 @ProviderFor(scaleState)
@@ -71,5 +71,20 @@ final selectedCoordinateProvider =
 );
 
 typedef _$selectedCoordinate = AutoDisposeNotifier<Map<String, int>>;
+String _$tappedColorHash() => r'5d2df7525455af0811f5abdce4ce19bb41ab5325';
+
+/// See also [tappedColor].
+@ProviderFor(tappedColor)
+final tappedColorProvider =
+    AutoDisposeNotifierProvider<tappedColor, Color>.internal(
+  tappedColor.new,
+  name: r'tappedColorProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tappedColorHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$tappedColor = AutoDisposeNotifier<Color>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -13,16 +13,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ColorSelectPage extends ConsumerWidget {
   ColorSelectPage({super.key});
 
-  Color createColorModel(double x, double y) {
-    return ColorHelper().coordinateToColor(x, y);
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color createColor(
+      ScaleType scaleType,
+      double x,
+      double y,
+    ) {
+      Color tappedColor = ref.watch(tappedColorProvider);
+      switch (scaleType) {
+        case ScaleType.scale1:
+          return ColorHelper().coordinateToColor(x, y);
+        case ScaleType.scale2:
+          return ColorHelper().getDetailColor(x, y, tappedColor);
+        case ScaleType.scale3:
+          return ColorHelper().getDetailColor(x, y, tappedColor);
+      }
+    }
+
     Map<String, int> getStartCoordinate() {
       int startX = ref.watch(selectedCoordinateProvider)['x'] as int;
       int startY = ref.watch(selectedCoordinateProvider)['y'] as int;
-      print('start $startX:$startY');
       return {'x': startX, 'y': startY};
     }
 
@@ -39,13 +50,16 @@ class ColorSelectPage extends ConsumerWidget {
                   GestureDetector(
                       onTap: () {
                         print('tap  $x:$y');
-                        ref
-                            .read(selectedCoordinateProvider.notifier)
-                            .selectCoordinate(x, y);
-                        ref.read(scaleStateProvider.notifier).chengeScale();
+                        Color color = createColor(
+                            ref.watch(scaleStateProvider),
+                            360 * x / maxHorizontal * scaleRate,
+                            (2 * y - maxVertical) / maxVertical * scaleRate);
+                        ref.read(tappedColorProvider.notifier).setColor(color);
+                        ref.read(scaleStateProvider.notifier).changeScale();
                       },
                       child: Draggable(
-                        data: createColorModel(
+                        data: createColor(
+                            ref.watch(scaleStateProvider),
                             360 * x / maxHorizontal * scaleRate,
                             (2 * y - maxVertical) / maxVertical * scaleRate),
                         feedback: Container(
@@ -54,7 +68,8 @@ class ColorSelectPage extends ConsumerWidget {
                               color: Colors.white,
                               width: 1,
                             ),
-                            color: createColorModel(
+                            color: createColor(
+                                ref.watch(scaleStateProvider),
                                 360 * x / maxHorizontal * scaleRate,
                                 (2 * y - maxVertical) /
                                     maxVertical *
@@ -77,7 +92,8 @@ class ColorSelectPage extends ConsumerWidget {
                                 color: Colors.white,
                                 width: 0.5,
                               ),
-                              color: createColorModel(
+                              color: createColor(
+                                  ref.watch(scaleStateProvider),
                                   360 *
                                       (x - (startCoordinate['x'] as int)) /
                                       maxHorizontal *

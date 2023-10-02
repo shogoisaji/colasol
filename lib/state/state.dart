@@ -43,7 +43,7 @@ class scaleState extends _$scaleState {
   @override
   ScaleType build() => ScaleType.scale1;
 
-  void chengeScale() {
+  void changeScale() {
     switch (state) {
       case ScaleType.scale1:
         state = ScaleType.scale2;
@@ -65,4 +65,12 @@ class selectedCoordinate extends _$selectedCoordinate {
   Map<String, int> build() => {'x': 0, 'y': 0};
 
   void selectCoordinate(int x, int y) => state = {'x': x, 'y': y};
+}
+
+@riverpod
+class tappedColor extends _$tappedColor {
+  @override
+  Color build() => Colors.white;
+
+  void setColor(Color color) => state = color;
 }
