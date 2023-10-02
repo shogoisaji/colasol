@@ -9,16 +9,16 @@ class ColorHelper {
   double saturation = 1.0; // 彩度
   double value = 1.0; // 明度
 
-  Color coordinateToColor(double x, double y) {
+  Color coordinateToColor(double x, double y, bool isLightMode) {
     if (x < 0 || x > 360 || y < -1 || y > 1) return Colors.white;
     // negative -> change saturation
-    if (y < 0) {
-      saturation = 1.0 + y;
+    if (isLightMode) {
+      saturation = y;
       value = 1.0;
       // positive -> change value
     } else {
       saturation = 1.0;
-      value = 1 - y;
+      value = y;
     }
     return HSVColor.fromAHSV(1.0, x, saturation, value).toColor();
   }

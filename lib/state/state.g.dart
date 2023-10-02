@@ -86,5 +86,19 @@ final tappedColorProvider =
 );
 
 typedef _$tappedColor = AutoDisposeNotifier<Color>;
+String _$lightModeHash() => r'01341e0276536e7ee41c6539bcdfeb995a912a35';
+
+/// See also [lightMode].
+@ProviderFor(lightMode)
+final lightModeProvider = AutoDisposeNotifierProvider<lightMode, bool>.internal(
+  lightMode.new,
+  name: r'lightModeProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$lightModeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$lightMode = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

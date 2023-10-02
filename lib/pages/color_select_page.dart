@@ -20,10 +20,11 @@ class ColorSelectPage extends ConsumerWidget {
       double x,
       double y,
     ) {
+      bool isLightMode = ref.watch(lightModeProvider);
       Color tappedColor = ref.watch(tappedColorProvider);
       switch (scaleType) {
         case ScaleType.scale1:
-          return ColorHelper().coordinateToColor(x, y);
+          return ColorHelper().coordinateToColor(x, y, isLightMode);
         case ScaleType.scale2:
           return ColorHelper().getDetailColor(x, y, tappedColor);
         case ScaleType.scale3:
@@ -53,7 +54,7 @@ class ColorSelectPage extends ConsumerWidget {
                         Color color = createColor(
                             ref.watch(scaleStateProvider),
                             360 * x / maxHorizontal * scaleRate,
-                            (2 * y - maxVertical) / maxVertical * scaleRate);
+                            y / maxVertical * scaleRate);
                         ref.read(tappedColorProvider.notifier).setColor(color);
                         ref.read(scaleStateProvider.notifier).changeScale();
                       },
@@ -61,7 +62,7 @@ class ColorSelectPage extends ConsumerWidget {
                         data: createColor(
                             ref.watch(scaleStateProvider),
                             360 * x / maxHorizontal * scaleRate,
-                            (2 * y - maxVertical) / maxVertical * scaleRate),
+                            y / maxVertical * scaleRate),
                         feedback: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -71,9 +72,7 @@ class ColorSelectPage extends ConsumerWidget {
                             color: createColor(
                                 ref.watch(scaleStateProvider),
                                 360 * x / maxHorizontal * scaleRate,
-                                (2 * y - maxVertical) /
-                                    maxVertical *
-                                    scaleRate),
+                                y / maxVertical * scaleRate),
                           ),
                           width: MediaQuery.of(context).size.width /
                               maxHorizontal *
@@ -88,20 +87,15 @@ class ColorSelectPage extends ConsumerWidget {
                           height:
                               MediaQuery.of(context).size.width / maxHorizontal,
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 0.5,
-                              ),
-                              color: createColor(
-                                  ref.watch(scaleStateProvider),
-                                  360 *
-                                      (x - (startCoordinate['x'] as int)) /
-                                      maxHorizontal *
-                                      scaleRate,
-                                  (2 * (y - startCoordinate['y']! as int) -
-                                          maxVertical) /
-                                      maxVertical *
-                                      scaleRate)),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 0.5,
+                            ),
+                            color: createColor(
+                                ref.watch(scaleStateProvider),
+                                360 * x / maxHorizontal * scaleRate,
+                                y / maxVertical * scaleRate),
+                          ),
                         ),
                       ))
                 }

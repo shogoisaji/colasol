@@ -74,3 +74,11 @@ class tappedColor extends _$tappedColor {
 
   void setColor(Color color) => state = color;
 }
+
+@riverpod
+class lightMode extends _$lightMode {
+  @override
+  bool build() => true;
+
+  void changeMode() => state = !state;
+}

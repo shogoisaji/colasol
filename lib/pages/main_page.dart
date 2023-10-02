@@ -82,38 +82,60 @@ class MainPage extends ConsumerWidget {
       ),
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 60,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return DragTarget(
-                      onAccept: (Color color) {
-                        ref
-                            .read(selectedColorsProvider.notifier)
-                            .setColor('color${index + 1}', color);
-                      },
-                      builder: (context, candidateData, rejectedData) =>
-                          Container(
-                        width: MediaQuery.of(context).size.width / 5,
-                        decoration: BoxDecoration(
-                          color: ref.watch(
-                              selectedColorsProvider)['color${index + 1}'],
-                        ),
-                        child: Align(
-                            alignment: const Alignment(0.7, 0.5),
-                            child: Transform.rotate(
-                              angle: -0.2,
-                              child: Text(
-                                'color${index + 1}',
-                              ),
-                            )),
-                      ),
-                    );
-                  }),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 80,
+                  height: 60,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return DragTarget(
+                          onAccept: (Color color) {
+                            ref
+                                .read(selectedColorsProvider.notifier)
+                                .setColor('color${index + 1}', color);
+                          },
+                          builder: (context, candidateData, rejectedData) =>
+                              Container(
+                            width: (MediaQuery.of(context).size.width - 80) / 5,
+                            decoration: BoxDecoration(
+                              color: ref.watch(
+                                  selectedColorsProvider)['color${index + 1}'],
+                            ),
+                            child: Align(
+                                alignment: const Alignment(0.7, 0.5),
+                                child: Transform.rotate(
+                                  angle: -0.2,
+                                  child: Text(
+                                    'color${index + 1}',
+                                  ),
+                                )),
+                          ),
+                        );
+                      }),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      ref.read(lightModeProvider.notifier).changeMode();
+                    },
+                    child: Container(
+                        color: ref.watch(lightModeProvider)
+                            ? Colors.blue[100]
+                            : Colors.blueGrey[900],
+                        height: 60,
+                        alignment: Alignment.center,
+                        child: ref.watch(lightModeProvider)
+                            ? Icon(Icons.sunny, color: Colors.orange, size: 40)
+                            : Icon(Icons.nightlight_round_sharp,
+                                color: Colors.yellow, size: 40)),
+                  ),
+                ),
+              ],
             ),
             Container(
                 width: double.infinity,
