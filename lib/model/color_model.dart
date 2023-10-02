@@ -1,10 +1,12 @@
 import 'package:colasol/config/config.dart';
 import 'package:flutter/material.dart';
 
+// 0~1536で色相、明度を表現
+// 今回は未使用
 class ColorModel {
   // original is 0~1536(6*256)
   final int originalIndexX; // 色相
-  final int originalIndexY; // 明度,彩度
+  final int originalIndexY; // 明度
 
   ColorModel({
     required this.originalIndexX,
