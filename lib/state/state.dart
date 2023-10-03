@@ -49,7 +49,7 @@ class scaleState extends _$scaleState {
         state = ScaleType.scale2;
         break;
       case ScaleType.scale2:
-        state = ScaleType.scale3;
+        state = ScaleType.scale1;
         break;
       case ScaleType.scale3:
         state = ScaleType.scale1;
