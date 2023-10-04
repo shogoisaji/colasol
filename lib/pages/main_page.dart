@@ -32,9 +32,6 @@ class MainPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _pageViewController = PageController();
-    ScaleType scaleType = ScaleType.scale1;
-    OriginalCoordinate selectedCoordinate = OriginalCoordinate(500, 500);
-    Color selectedColor = Colors.white24;
     return Scaffold(
       floatingActionButton: Container(
         width: 100,

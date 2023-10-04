@@ -70,18 +70,27 @@ class selectedCoordinate extends _$selectedCoordinate {
 @riverpod
 class tappedColor extends _$tappedColor {
   @override
-  Color build() => Colors.white;
+  Color build() => Colors.transparent;
 
   void setColor(Color color) => state = color;
+  void resetColor() => state = Colors.transparent;
 }
 
 @riverpod
-class tappState extends _$tappState {
+class tapState extends _$tapState {
   @override
   bool build() => false;
 
-  void tapped() => state = true;
-  void untapped() => state = false;
+  void tapped() => state = !state;
+  // void untapped() => state = false;
+}
+
+@riverpod
+class tappedCoordinate extends _$tappedCoordinate {
+  @override
+  Map<String, double> build() => {'x': 0, 'y': 0};
+
+  void tap(double x, double y) => state = {'x': x, 'y': y};
 }
 
 @riverpod

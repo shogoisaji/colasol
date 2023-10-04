@@ -86,20 +86,36 @@ final tappedColorProvider =
 );
 
 typedef _$tappedColor = AutoDisposeNotifier<Color>;
-String _$tappStateHash() => r'b1d5830d33310471321450e3303f01c2490d309e';
+String _$tapStateHash() => r'6ee6db438055187dc0865c7e0514f0947c5978ea';
 
-/// See also [tappState].
-@ProviderFor(tappState)
-final tappStateProvider = AutoDisposeNotifierProvider<tappState, bool>.internal(
-  tappState.new,
-  name: r'tappStateProvider',
+/// See also [tapState].
+@ProviderFor(tapState)
+final tapStateProvider = AutoDisposeNotifierProvider<tapState, bool>.internal(
+  tapState.new,
+  name: r'tapStateProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$tappStateHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tapStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$tappState = AutoDisposeNotifier<bool>;
+typedef _$tapState = AutoDisposeNotifier<bool>;
+String _$tappedCoordinateHash() => r'779d2c59b25b220d6a173f0cc616432045cc192b';
+
+/// See also [tappedCoordinate].
+@ProviderFor(tappedCoordinate)
+final tappedCoordinateProvider =
+    AutoDisposeNotifierProvider<tappedCoordinate, Map<String, double>>.internal(
+  tappedCoordinate.new,
+  name: r'tappedCoordinateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$tappedCoordinateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$tappedCoordinate = AutoDisposeNotifier<Map<String, double>>;
 String _$lightModeHash() => r'01341e0276536e7ee41c6539bcdfeb995a912a35';
 
 /// See also [lightMode].
