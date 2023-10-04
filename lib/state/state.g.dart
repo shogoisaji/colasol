@@ -39,7 +39,7 @@ final bottomNavigationBarIndexProvider =
 );
 
 typedef _$bottomNavigationBarIndex = AutoDisposeNotifier<int>;
-String _$scaleStateHash() => r'918df0d78467b3ea302c6e1a97c72e3b6ab99ad2';
+String _$scaleStateHash() => r'585a9230949154cae37260d2292b394c40092255';
 
 /// See also [scaleState].
 @ProviderFor(scaleState)
@@ -86,6 +86,20 @@ final tappedColorProvider =
 );
 
 typedef _$tappedColor = AutoDisposeNotifier<Color>;
+String _$tappStateHash() => r'b1d5830d33310471321450e3303f01c2490d309e';
+
+/// See also [tappState].
+@ProviderFor(tappState)
+final tappStateProvider = AutoDisposeNotifierProvider<tappState, bool>.internal(
+  tappState.new,
+  name: r'tappStateProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tappStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$tappState = AutoDisposeNotifier<bool>;
 String _$lightModeHash() => r'01341e0276536e7ee41c6539bcdfeb995a912a35';
 
 /// See also [lightMode].

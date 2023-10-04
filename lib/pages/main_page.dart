@@ -130,8 +130,9 @@ class MainPage extends ConsumerWidget {
                         height: 60,
                         alignment: Alignment.center,
                         child: ref.watch(lightModeProvider)
-                            ? Icon(Icons.sunny, color: Colors.orange, size: 40)
-                            : Icon(Icons.nightlight_round_sharp,
+                            ? const Icon(Icons.sunny,
+                                color: Colors.orange, size: 40)
+                            : const Icon(Icons.nightlight_round_sharp,
                                 color: Colors.yellow, size: 40)),
                   ),
                 ),
