@@ -10,12 +10,23 @@ class ColorListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // now phone only
-    void _onShare(BuildContext context) {
+    void _onShareHex(BuildContext context) {
       var selectedColors = ref.watch(selectedColorsProvider);
       String shareText = '';
       for (Color color in selectedColors.values) {
         shareText = '$shareText$color\n';
+      }
+      Share.share(
+        shareText,
+      );
+    }
+
+    void _onShareRGB(BuildContext context) {
+      var selectedColors = ref.watch(selectedColorsProvider);
+      String shareText = '';
+      for (Color color in selectedColors.values) {
+        String rgb = '(${color.red},${color.green},${color.blue})';
+        shareText = '$shareText$rgb\n';
       }
       Share.share(
         shareText,
@@ -33,7 +44,7 @@ class ColorListPage extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 298,
+                  height: 335,
                   width: MediaQuery.of(context).size.width / 1.7,
                   padding: const EdgeInsets.all(24),
                   constraints: const BoxConstraints(
@@ -58,6 +69,13 @@ class ColorListPage extends ConsumerWidget {
                       ]),
                   child: Column(
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          'H e x',
+                          style: TextStyle(fontSize: 24, color: Colors.grey),
+                        ),
+                      ),
                       Expanded(
                         child: ListView.builder(
                           itemCount: 5,
@@ -70,7 +88,7 @@ class ColorListPage extends ConsumerWidget {
                                 height: 50,
                                 color: selectedColor,
                                 child: Center(
-                                    child: Text(
+                                    child: SelectableText(
                                   selectedColor.value.toRadixString(16),
                                 )),
                               ),
@@ -86,7 +104,7 @@ class ColorListPage extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    _onShare(context);
+                    _onShareHex(context);
                   },
                   child: Container(
                       width: 40,
@@ -123,7 +141,7 @@ class ColorListPage extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 298,
+                height: 335,
                 width: MediaQuery.of(context).size.width / 1.7,
                 padding: const EdgeInsets.all(24),
                 constraints: const BoxConstraints(
@@ -148,6 +166,11 @@ class ColorListPage extends ConsumerWidget {
                     ]),
                 child: Column(
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: Text('R G B',
+                          style: TextStyle(fontSize: 24, color: Colors.grey)),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: 5,
@@ -160,8 +183,8 @@ class ColorListPage extends ConsumerWidget {
                                 height: 50,
                                 color: selectedColor,
                                 child: Center(
-                                  child: Text(
-                                    'ARGB(${selectedColor.alpha},${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
+                                  child: SelectableText(
+                                    '(${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
                                   ),
                                 )),
                           );
@@ -176,7 +199,7 @@ class ColorListPage extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  _onShare(context);
+                  _onShareRGB(context);
                 },
                 child: Container(
                     width: 40,
