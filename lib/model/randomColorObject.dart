@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class RandomColorObject {
   final int index;
+  final bool lightMode;
 
-  RandomColorObject({required this.index});
+  RandomColorObject({required this.index, required this.lightMode});
 
   Map<String, dynamic> getObject() {
     double x =
@@ -17,7 +18,7 @@ class RandomColorObject {
     // add random
     x = x + (2 * Random().nextDouble() - 1) / 10;
     y = y + (2 * Random().nextDouble() - 1) / 10;
-    Color color = ColorHelper().randomColor(true);
+    Color color = ColorHelper().randomColor(lightMode);
     return {
       'x': x,
       'y': y,

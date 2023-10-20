@@ -1,4 +1,3 @@
-import 'package:colasol/model/randomColorObject.dart';
 import 'package:colasol/model/scale_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

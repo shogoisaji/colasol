@@ -2,13 +2,11 @@ import 'dart:math';
 
 import 'package:colasol/animations/drop_animation.dart';
 import 'package:colasol/animations/grab_animation.dart';
-import 'package:colasol/animations/appear_animation.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/randomColorObject.dart';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,11 +25,14 @@ class _RandomPageState extends ConsumerState<RandomPage>
 
   late List<Map<String, dynamic>> randomObjectArray;
 
-  void setArray() {
+  void setRandomArray() {
     randomObjectArray = List.generate(
         maxRandomHorizontal * maxRandomVertical,
         (index) => RandomColorObject(
               index: index,
+// errrrrrrrrrrrerrrrerere
+
+              lightMode: ref.watch(lightModeProvider),
             ).getObject());
     randomObjectArray.shuffle();
 
@@ -43,7 +44,7 @@ class _RandomPageState extends ConsumerState<RandomPage>
   @override
   void initState() {
     super.initState();
-    setArray();
+    setRandomArray();
 
     _controller = AnimationController(
       vsync: this,
@@ -110,7 +111,7 @@ class _RandomPageState extends ConsumerState<RandomPage>
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    setArray();
+                    setRandomArray();
                     _controller.reset();
                     _controller.forward();
                   });
