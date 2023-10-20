@@ -71,7 +71,7 @@ final selectedCoordinateProvider =
 );
 
 typedef _$selectedCoordinate = AutoDisposeNotifier<Map<String, int>>;
-String _$tappedColorHash() => r'5d2df7525455af0811f5abdce4ce19bb41ab5325';
+String _$tappedColorHash() => r'b7833e5e96fdfde95e08b291ece288bb1b0fd050';
 
 /// See also [tappedColor].
 @ProviderFor(tappedColor)
@@ -130,5 +130,55 @@ final lightModeProvider = AutoDisposeNotifierProvider<lightMode, bool>.internal(
 );
 
 typedef _$lightMode = AutoDisposeNotifier<bool>;
+String _$randomShuffleHash() => r'2a8f248f76321059f2e8612f46d0e51f254f86b6';
+
+/// See also [randomShuffle].
+@ProviderFor(randomShuffle)
+final randomShuffleProvider =
+    AutoDisposeNotifierProvider<randomShuffle, bool>.internal(
+  randomShuffle.new,
+  name: r'randomShuffleProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$randomShuffleHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$randomShuffle = AutoDisposeNotifier<bool>;
+String _$longPressPositionHash() => r'a1d055d428ff8abec6beb5656c5e37fcbaa0cee1';
+
+/// See also [longPressPosition].
+@ProviderFor(longPressPosition)
+final longPressPositionProvider = AutoDisposeNotifierProvider<longPressPosition,
+    Map<String, double>>.internal(
+  longPressPosition.new,
+  name: r'longPressPositionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$longPressPositionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$longPressPosition = AutoDisposeNotifier<Map<String, double>>;
+String _$randomColorObjectArrayHash() =>
+    r'c5a6fb539ae8dc058e468fadc245b2f7a6a8ccf3';
+
+/// See also [randomColorObjectArray].
+@ProviderFor(randomColorObjectArray)
+final randomColorObjectArrayProvider = AutoDisposeNotifierProvider<
+    randomColorObjectArray, List<Map<String, dynamic>>>.internal(
+  randomColorObjectArray.new,
+  name: r'randomColorObjectArrayProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$randomColorObjectArrayHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$randomColorObjectArray
+    = AutoDisposeNotifier<List<Map<String, dynamic>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

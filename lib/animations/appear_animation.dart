@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 
-class PointAnimation extends StatelessWidget {
+class AppearAnimation extends StatelessWidget {
   final double delay;
   final Widget child;
 
-  PointAnimation({required this.delay, required this.child});
+  AppearAnimation({required this.delay, required this.child});
   final opacity = MovieTweenProperty<double>();
   final translateY = MovieTweenProperty<double>();
+
   @override
   Widget build(BuildContext context) {
     final tween = MovieTween()

@@ -1,8 +1,7 @@
+import 'dart:math';
+
 import 'package:colasol/config/config.dart';
-import 'package:colasol/model/scale_type.dart';
-import 'package:colasol/state/state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ColorHelper {
   double hue = 360.0; // 色相
@@ -20,11 +19,23 @@ class ColorHelper {
     return HSVColor.fromAHSV(1.0, x, saturation, value).toColor();
   }
 
+  Color randomColor(bool isLightMode) {
+    hue = Random().nextDouble() * 360;
+
+    if (isLightMode) {
+      saturation = Random().nextDouble();
+      value = 1.0;
+    } else {
+      saturation = 1.0;
+      value = Random().nextDouble();
+    }
+    return HSVColor.fromAHSV(1.0, hue, saturation, value).toColor();
+  }
+
   Color getDetailColor(int x, int y, Color color) {
     final double hue = colorToHSV(color)['hue'] as double;
     final double saturation = colorToHSV(color)['saturation'] as double;
     final double value = colorToHSV(color)['value'] as double;
-    final double updateHue = (hue - (x - 45)) % 360.abs();
     final double updateSaturation = saturation - x * saturation / maxHorizontal;
     final double updateValue = value - y * value / maxVertical;
 

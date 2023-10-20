@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:colasol/animations/grab_animation.dart';
-import 'package:colasol/animations/point_animation.dart';
-import 'package:colasol/animations/tapped_animation.dart';
+import 'package:colasol/animations/appear_animation.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/color_hsv.dart';
 import 'package:colasol/model/scale_type.dart';
@@ -106,7 +105,7 @@ class ColorSelectPage extends HookConsumerWidget {
                               feedback: DragAnimation(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
+                                    borderRadius: BorderRadius.circular(200),
                                     color: createColor(
                                         ref.watch(scaleStateProvider), x, y),
                                   ),
@@ -118,17 +117,18 @@ class ColorSelectPage extends HookConsumerWidget {
                                       1.2,
                                 ),
                               ),
-                              child: PointAnimation(
+                              child: AppearAnimation(
                                 delay: Random().nextDouble(),
                                 child: Container(
                                   margin: const EdgeInsets.all(margin),
                                   width: (MediaQuery.of(context).size.width -
                                           2 * margin * maxHorizontal) /
                                       maxHorizontal,
-                                  height: MediaQuery.of(context).size.width /
+                                  height: (MediaQuery.of(context).size.width -
+                                          2 * margin * maxHorizontal) /
                                       maxHorizontal,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
+                                    borderRadius: BorderRadius.circular(200),
                                     color: createColor(
                                         ref.watch(scaleStateProvider), x, y),
                                   ),

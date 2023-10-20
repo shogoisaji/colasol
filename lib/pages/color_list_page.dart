@@ -1,6 +1,5 @@
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
-import 'package:colasol/utils/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';

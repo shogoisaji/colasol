@@ -1,4 +1,4 @@
-import 'package:colasol/config/config.dart';
+import 'package:colasol/model/randomColorObject.dart';
 import 'package:colasol/model/scale_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -99,4 +99,28 @@ class lightMode extends _$lightMode {
   bool build() => true;
 
   void changeMode() => state = !state;
+}
+
+@riverpod
+class randomShuffle extends _$randomShuffle {
+  @override
+  bool build() => true;
+
+  void shuffle() => state = !state;
+}
+
+@riverpod
+class longPressPosition extends _$longPressPosition {
+  @override
+  Map<String, double> build() => {'x': 0, 'y': 0};
+
+  void changePosition(double x, double y) => state = {'x': x, 'y': y};
+}
+
+@riverpod
+class randomColorObjectArray extends _$randomColorObjectArray {
+  @override
+  List<Map<String, dynamic>> build() => [];
+
+  void setArray(List<Map<String, dynamic>> array) => state = array;
 }

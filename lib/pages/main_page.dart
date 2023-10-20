@@ -1,23 +1,20 @@
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/color_model.dart';
 import 'package:colasol/model/original_coordinate.dart';
-import 'package:colasol/model/scale_type.dart';
 import 'package:colasol/pages/color_list_page.dart';
 import 'package:colasol/pages/color_select_page.dart';
 import 'package:colasol/pages/color_test_page.dart';
-import 'package:colasol/pages/setting_page.dart';
+import 'package:colasol/pages/random_page.dart';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
-import 'package:colasol/utils/color_util.dart';
 import 'package:colasol/widgets/custom_bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MainPage extends ConsumerWidget {
   // final ScaleType scaleType = ScaleType.scale1;
-  OriginalCoordinate initialCoordinate = OriginalCoordinate(0, 0);
+  final OriginalCoordinate initialCoordinate = OriginalCoordinate(0, 0);
   final int maxHorizontal = 50;
   final int maxVertical = 100;
   MainPage({super.key});
@@ -66,8 +63,8 @@ class MainPage extends ConsumerWidget {
         },
         items: <BottomNavigationBarItem>[
           customBottomNavigationItem(const Icon(Icons.grid_on)),
-          customBottomNavigationItem(const Icon(Icons.assignment)),
           customBottomNavigationItem(const Icon(Icons.brush)),
+          customBottomNavigationItem(const Icon(Icons.assignment)),
           customBottomNavigationItem(const Icon(Icons.settings)),
         ],
         type: BottomNavigationBarType.fixed,
@@ -153,9 +150,9 @@ class MainPage extends ConsumerWidget {
             Expanded(
               child: PageView(controller: _pageViewController, children: [
                 ColorSelectPage(),
+                RandomPage(),
                 ColorListPage(),
                 ColorTestPagge(),
-                SettingPage(),
               ]),
             ),
           ],

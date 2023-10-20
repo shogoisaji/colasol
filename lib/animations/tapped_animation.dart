@@ -2,8 +2,6 @@ import 'package:colasol/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:simple_animations/simple_animations.dart';
-import 'package:supercharged/supercharged.dart';
 
 class TappedAnimation extends HookConsumerWidget {
   final Widget child;
@@ -36,6 +34,7 @@ class TappedAnimation extends HookConsumerWidget {
       animationController.forward();
 
       handleTapChange(isTap.value);
+      return null;
     }, [isTap.value]);
 
     return AnimatedBuilder(
