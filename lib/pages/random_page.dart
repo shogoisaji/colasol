@@ -20,6 +20,7 @@ class RandomPage extends ConsumerStatefulWidget {
 class _RandomPageState extends ConsumerState<RandomPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  bool lightMode = true;
 
   final int count = maxRandomHorizontal * maxRandomVertical;
 
@@ -30,11 +31,10 @@ class _RandomPageState extends ConsumerState<RandomPage>
         maxRandomHorizontal * maxRandomVertical,
         (index) => RandomColorObject(
               index: index,
-// errrrrrrrrrrrerrrrerere
-
-              lightMode: ref.watch(lightModeProvider),
+              lightMode: lightMode,
             ).getObject());
     randomObjectArray.shuffle();
+    debugPrint(lightMode.toString());
 
     Future.microtask(() => ref
         .read(randomColorObjectArrayProvider.notifier)
@@ -64,6 +64,7 @@ class _RandomPageState extends ConsumerState<RandomPage>
     return Container(
       width: double.infinity,
       height: double.infinity,
+      color: ref.watch(lightModeProvider) ? Colors.black : Colors.white,
       child: Stack(
         children: [
           for (int i = 0; i < count; i++) ...{
@@ -96,6 +97,14 @@ class _RandomPageState extends ConsumerState<RandomPage>
                           aspectRatio: 1,
                           child: Container(
                             decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 1.0,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
                               borderRadius: BorderRadius.circular(300),
                               color: randomObjectArray[i]['color'] as Color,
                             ),
@@ -130,6 +139,47 @@ class _RandomPageState extends ConsumerState<RandomPage>
                 ),
               ),
             ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: InkWell(
+                  onTap: () {
+                    ref.read(lightModeProvider.notifier).changeMode();
+                    setState(() {
+                      lightMode = ref.watch(lightModeProvider);
+                      setRandomArray();
+                      _controller.reset();
+                      _controller.forward();
+                    });
+                  },
+                  child: Container(
+                      width: 60,
+                      height: 60,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: ref.watch(lightModeProvider)
+                            ? Colors.blue[100]
+                            : Colors.blueGrey[900],
+                        boxShadow: [
+                          BoxShadow(
+                            color: ref.watch(lightModeProvider)
+                                ? Colors.black.withOpacity(0.4)
+                                : Colors.grey.withOpacity(1.0),
+                            spreadRadius: 3.0,
+                            blurRadius: 8,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: ref.watch(lightModeProvider)
+                          ? const Icon(Icons.sunny,
+                              color: Colors.orange, size: 40)
+                          : const Icon(Icons.nightlight_round_sharp,
+                              color: Colors.yellow, size: 40)),
+                )),
           ),
         ],
       ),

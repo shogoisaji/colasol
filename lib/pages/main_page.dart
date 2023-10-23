@@ -55,108 +55,130 @@ class MainPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onLongPress: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Reset Colors ?'),
-                            actions: [
-                              TextButton(
-                                child: const Text('cancel',
-                                    style: TextStyle(
-                                        color: Colors.blue, fontSize: 20)),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('Reset',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 24)),
-                                onPressed: () {
-                                  ref
-                                      .read(selectedColorsProvider.notifier)
-                                      .resetColor();
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                  },
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width - 80,
-                    height: 60,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return DragTarget(
-                            onAccept: (Color color) {
-                              ref
-                                  .read(selectedColorsProvider.notifier)
-                                  .setColor('color${index + 1}', color);
-                            },
-                            builder: (context, candidateData, rejectedData) =>
-                                Container(
-                              width:
-                                  (MediaQuery.of(context).size.width - 80) / 5,
-                              decoration: BoxDecoration(
-                                color: ref.watch(selectedColorsProvider)[
-                                    'color${index + 1}'],
-                              ),
-                              child: Align(
-                                  alignment: const Alignment(0.7, 0.5),
-                                  child: Transform.rotate(
-                                    angle: -0.2,
-                                    child: Text(
-                                      'color${index + 1}',
-                                    ),
-                                  )),
-                            ),
-                          );
-                        }),
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 1.0,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
                   ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      ref.read(lightModeProvider.notifier).changeMode();
+                ],
+              ),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onLongPress: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Reset Colors ?'),
+                              actions: [
+                                TextButton(
+                                  child: const Text('cancel',
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 20)),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                ElevatedButton(
+                                  child: const Text('Reset',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 24)),
+                                  onPressed: () {
+                                    ref
+                                        .read(selectedColorsProvider.notifier)
+                                        .resetColor();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          });
                     },
                     child: Container(
-                        color: ref.watch(lightModeProvider)
-                            ? Colors.blue[100]
-                            : Colors.blueGrey[900],
-                        height: 60,
-                        alignment: Alignment.center,
-                        child: ref.watch(lightModeProvider)
-                            ? const Icon(Icons.sunny,
-                                color: Colors.orange, size: 40)
-                            : const Icon(Icons.nightlight_round_sharp,
-                                color: Colors.yellow, size: 40)),
+                      width: MediaQuery.of(context).size.width - 80,
+                      height: 60,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return DragTarget(
+                              onAccept: (Color color) {
+                                ref
+                                    .read(selectedColorsProvider.notifier)
+                                    .setColor('color${index + 1}', color);
+                              },
+                              builder: (context, candidateData, rejectedData) =>
+                                  Container(
+                                width:
+                                    (MediaQuery.of(context).size.width - 80) /
+                                        5,
+                                decoration: BoxDecoration(
+                                  border: Border.symmetric(
+                                      horizontal: BorderSide(
+                                          width: 1,
+                                          color: ref.watch(lightModeProvider)
+                                              ? Colors.black.withOpacity(0.2)
+                                              : Colors.black.withOpacity(0.8)),
+                                      vertical: BorderSide(
+                                          width: 0.5,
+                                          color: ref.watch(lightModeProvider)
+                                              ? Colors.black.withOpacity(0.2)
+                                              : Colors.black.withOpacity(0.8))),
+                                  color: ref.watch(selectedColorsProvider)[
+                                      'color${index + 1}'],
+                                ),
+                                child: Align(
+                                    alignment: const Alignment(0.7, 0.5),
+                                    child: Transform.rotate(
+                                      angle: -0.2,
+                                      child: Text(
+                                        'color${index + 1}',
+                                      ),
+                                    )),
+                              ),
+                            );
+                          }),
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        ref.read(lightModeProvider.notifier).changeMode();
+                      },
+                      child: Container(
+                          height: 60,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.symmetric(
+                                horizontal: BorderSide(
+                                    width: 1,
+                                    color: ref.watch(lightModeProvider)
+                                        ? Colors.black.withOpacity(0.2)
+                                        : Colors.black.withOpacity(0.8)),
+                                vertical: BorderSide(
+                                    width: 0.5,
+                                    color: ref.watch(lightModeProvider)
+                                        ? Colors.black.withOpacity(0.2)
+                                        : Colors.black.withOpacity(0.8))),
+                            color: ref.watch(lightModeProvider)
+                                ? Colors.blue[100]
+                                : Colors.blueGrey[900],
+                          ),
+                          child: ref.watch(lightModeProvider)
+                              ? const Icon(Icons.sunny,
+                                  color: Colors.orange, size: 40)
+                              : const Icon(Icons.nightlight_round_sharp,
+                                  color: Colors.yellow, size: 40)),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Container(
-                width: double.infinity,
-                height: 2,
-                decoration: BoxDecoration(
-                    // border: Border(
-                    // top: BorderSide(color: Colors.white, width: 0.5),
-                    // ),
-                    gradient: LinearGradient(
-                  colors: [
-                    Colors.grey.withOpacity(0.3),
-                    Colors.white.withOpacity(0.3)
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ))),
             Expanded(
               child: PageView(controller: _pageViewController, children: [
                 RandomPage(),
