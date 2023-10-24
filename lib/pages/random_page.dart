@@ -6,6 +6,7 @@ import 'package:colasol/config/config.dart';
 import 'package:colasol/model/randomColorObject.dart';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
+import 'package:colasol/widgets/light_mode_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -154,31 +155,7 @@ class _RandomPageState extends ConsumerState<RandomPage>
                       _controller.forward();
                     });
                   },
-                  child: Container(
-                      width: 60,
-                      height: 60,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: ref.watch(lightModeProvider)
-                            ? Colors.blue[100]
-                            : Colors.blueGrey[900],
-                        boxShadow: [
-                          BoxShadow(
-                            color: ref.watch(lightModeProvider)
-                                ? Colors.black.withOpacity(0.4)
-                                : Colors.grey.withOpacity(1.0),
-                            spreadRadius: 3.0,
-                            blurRadius: 8,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: ref.watch(lightModeProvider)
-                          ? const Icon(Icons.sunny,
-                              color: Colors.orange, size: 40)
-                          : const Icon(Icons.nightlight_round_sharp,
-                              color: Colors.yellow, size: 40)),
+                  child: const LightModeButton(),
                 )),
           ),
         ],

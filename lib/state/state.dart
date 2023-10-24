@@ -10,21 +10,21 @@ part 'state.g.dart';
 class SelectedColors extends _$SelectedColors {
   @override
   Map<String, Color> build() => {
-        'color1': Colors.white,
-        'color2': Colors.white,
-        'color3': Colors.white,
-        'color4': Colors.white,
-        'color5': Colors.white,
+        'color1': Colors.transparent,
+        'color2': Colors.transparent,
+        'color3': Colors.transparent,
+        'color4': Colors.transparent,
+        'color5': Colors.transparent,
       };
 
   void setColor(String index, Color color) => state[index] = color;
 
   void resetColor() => state = {
-        'color1': Colors.white,
-        'color2': Colors.white,
-        'color3': Colors.white,
-        'color4': Colors.white,
-        'color5': Colors.white,
+        'color1': Colors.transparent,
+        'color2': Colors.transparent,
+        'color3': Colors.transparent,
+        'color4': Colors.transparent,
+        'color5': Colors.transparent,
       };
 }
 
@@ -49,10 +49,6 @@ class scaleState extends _$scaleState {
         break;
       case ScaleType.scale2:
         state = ScaleType.scale1;
-        break;
-      case ScaleType.scale3:
-        state = ScaleType.scale1;
-        ref.read(selectedCoordinateProvider.notifier).selectCoordinate(0, 0);
         break;
     }
   }
@@ -81,7 +77,6 @@ class tapState extends _$tapState {
   bool build() => false;
 
   void tapped() => state = !state;
-  // void untapped() => state = false;
 }
 
 @riverpod

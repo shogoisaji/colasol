@@ -32,7 +32,8 @@ class ColorHelper {
     return HSVColor.fromAHSV(1.0, hue, saturation, value).toColor();
   }
 
-  Color getDetailColor(int x, int y, Color color) {
+  Color getDetailColor(
+      int x, int y, int maxHorizontal, int maxVertical, Color color) {
     final double hue = colorToHSV(color)['hue'] as double;
     final double saturation = colorToHSV(color)['saturation'] as double;
     final double value = colorToHSV(color)['value'] as double;

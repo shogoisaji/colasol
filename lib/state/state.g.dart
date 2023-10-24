@@ -6,7 +6,7 @@ part of 'state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedColorsHash() => r'3126f338b88ec9cd5fcabb4ecafcd1ec9a271f64';
+String _$selectedColorsHash() => r'10d027f5f4abbfcca3c9983d5f7c3374732ba111';
 
 /// See also [SelectedColors].
 @ProviderFor(SelectedColors)
@@ -39,7 +39,7 @@ final bottomNavigationBarIndexProvider =
 );
 
 typedef _$bottomNavigationBarIndex = AutoDisposeNotifier<int>;
-String _$scaleStateHash() => r'585a9230949154cae37260d2292b394c40092255';
+String _$scaleStateHash() => r'8f563ccb809d3c5d19b79de1e1c383b2f3b0e5ea';
 
 /// See also [scaleState].
 @ProviderFor(scaleState)

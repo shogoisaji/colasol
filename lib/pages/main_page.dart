@@ -100,8 +100,11 @@ class MainPage extends ConsumerWidget {
                           });
                     },
                     child: Container(
-                      width: MediaQuery.of(context).size.width - 80,
+                      width: MediaQuery.of(context).size.width,
                       height: 60,
+                      color: ref.watch(lightModeProvider)
+                          ? Colors.black
+                          : Colors.white,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
@@ -114,20 +117,18 @@ class MainPage extends ConsumerWidget {
                               },
                               builder: (context, candidateData, rejectedData) =>
                                   Container(
-                                width:
-                                    (MediaQuery.of(context).size.width - 80) /
-                                        5,
+                                width: MediaQuery.of(context).size.width / 5,
                                 decoration: BoxDecoration(
                                   border: Border.symmetric(
                                       horizontal: BorderSide(
                                           width: 1,
                                           color: ref.watch(lightModeProvider)
-                                              ? Colors.black.withOpacity(0.2)
+                                              ? Colors.white
                                               : Colors.black.withOpacity(0.8)),
                                       vertical: BorderSide(
                                           width: 0.5,
                                           color: ref.watch(lightModeProvider)
-                                              ? Colors.black.withOpacity(0.2)
+                                              ? Colors.white
                                               : Colors.black.withOpacity(0.8))),
                                   color: ref.watch(selectedColorsProvider)[
                                       'color${index + 1}'],
@@ -138,6 +139,13 @@ class MainPage extends ConsumerWidget {
                                       angle: -0.2,
                                       child: Text(
                                         'color${index + 1}',
+                                        style: TextStyle(
+                                          color: ref.watch(lightModeProvider)
+                                              ? Colors.white
+                                              : Colors.black,
+                                          // fontSize: 20,
+                                          // fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     )),
                               ),
@@ -145,37 +153,37 @@ class MainPage extends ConsumerWidget {
                           }),
                     ),
                   ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        ref.read(lightModeProvider.notifier).changeMode();
-                      },
-                      child: Container(
-                          height: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border.symmetric(
-                                horizontal: BorderSide(
-                                    width: 1,
-                                    color: ref.watch(lightModeProvider)
-                                        ? Colors.black.withOpacity(0.2)
-                                        : Colors.black.withOpacity(0.8)),
-                                vertical: BorderSide(
-                                    width: 0.5,
-                                    color: ref.watch(lightModeProvider)
-                                        ? Colors.black.withOpacity(0.2)
-                                        : Colors.black.withOpacity(0.8))),
-                            color: ref.watch(lightModeProvider)
-                                ? Colors.blue[100]
-                                : Colors.blueGrey[900],
-                          ),
-                          child: ref.watch(lightModeProvider)
-                              ? const Icon(Icons.sunny,
-                                  color: Colors.orange, size: 40)
-                              : const Icon(Icons.nightlight_round_sharp,
-                                  color: Colors.yellow, size: 40)),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       ref.read(lightModeProvider.notifier).changeMode();
+                  //     },
+                  //     child: Container(
+                  //         height: 60,
+                  //         alignment: Alignment.center,
+                  //         decoration: BoxDecoration(
+                  //           border: Border.symmetric(
+                  //               horizontal: BorderSide(
+                  //                   width: 1,
+                  //                   color: ref.watch(lightModeProvider)
+                  //                       ? Colors.black.withOpacity(0.2)
+                  //                       : Colors.black.withOpacity(0.8)),
+                  //               vertical: BorderSide(
+                  //                   width: 0.5,
+                  //                   color: ref.watch(lightModeProvider)
+                  //                       ? Colors.black.withOpacity(0.2)
+                  //                       : Colors.black.withOpacity(0.8))),
+                  //           color: ref.watch(lightModeProvider)
+                  //               ? Colors.blue[100]
+                  //               : Colors.blueGrey[900],
+                  //         ),
+                  //         child: ref.watch(lightModeProvider)
+                  //             ? const Icon(Icons.sunny,
+                  //                 color: Colors.orange, size: 40)
+                  //             : const Icon(Icons.nightlight_round_sharp,
+                  //                 color: Colors.yellow, size: 40)),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
