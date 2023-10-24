@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
-class ColorListPage extends ConsumerWidget {
-  const ColorListPage({super.key});
+class ColorCodePage extends ConsumerWidget {
+  const ColorCodePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void _onShareHex(BuildContext context) {
+    void onShareHex(BuildContext context) {
       var selectedColors = ref.watch(selectedColorsProvider);
       String shareText = '';
       for (Color color in selectedColors.values) {
@@ -20,7 +20,7 @@ class ColorListPage extends ConsumerWidget {
       );
     }
 
-    void _onShareRGB(BuildContext context) {
+    void onShareRGB(BuildContext context) {
       var selectedColors = ref.watch(selectedColorsProvider);
       String shareText = '';
       for (Color color in selectedColors.values) {
@@ -104,7 +104,7 @@ class ColorListPage extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    _onShareHex(context);
+                    onShareHex(context);
                   },
                   child: Container(
                       width: 40,
@@ -199,7 +199,7 @@ class ColorListPage extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  _onShareRGB(context);
+                  onShareRGB(context);
                 },
                 child: Container(
                     width: 40,

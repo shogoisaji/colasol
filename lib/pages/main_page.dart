@@ -2,7 +2,7 @@ import 'package:colasol/config/config.dart';
 import 'package:colasol/model/color_model.dart';
 import 'package:colasol/model/original_coordinate.dart';
 import 'package:colasol/pages/color_check_page.dart';
-import 'package:colasol/pages/color_list_page.dart';
+import 'package:colasol/pages/color_code_page.dart';
 import 'package:colasol/pages/color_select_page.dart';
 import 'package:colasol/pages/random_page.dart';
 import 'package:colasol/state/state.dart';
@@ -192,7 +192,7 @@ class MainPage extends ConsumerWidget {
                 RandomPage(),
                 ColorSelectPage(),
                 ColorCheckPage(),
-                ColorListPage(),
+                ColorCodePage(),
               ]),
             ),
           ],
