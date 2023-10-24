@@ -44,7 +44,7 @@ String _$scaleStateHash() => r'8f563ccb809d3c5d19b79de1e1c383b2f3b0e5ea';
 /// See also [scaleState].
 @ProviderFor(scaleState)
 final scaleStateProvider =
-    AutoDisposeNotifierProvider<scaleState, ScaleType>.internal(
+    AutoDisposeNotifierProvider<scaleState, DisplayType>.internal(
   scaleState.new,
   name: r'scaleStateProvider',
   debugGetCreateSourceHash:
@@ -53,7 +53,7 @@ final scaleStateProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$scaleState = AutoDisposeNotifier<ScaleType>;
+typedef _$scaleState = AutoDisposeNotifier<DisplayType>;
 String _$selectedCoordinateHash() =>
     r'c04d82679267b5f4cb5adb92ff9401ba6f71648c';
 

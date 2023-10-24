@@ -1,4 +1,4 @@
-import 'package:colasol/model/scale_type.dart';
+import 'package:colasol/model/display_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -40,15 +40,15 @@ class bottomNavigationBarIndex extends _$bottomNavigationBarIndex {
 @riverpod
 class scaleState extends _$scaleState {
   @override
-  ScaleType build() => ScaleType.scale1;
+  DisplayType build() => DisplayType.regular;
 
   void changeScale() {
     switch (state) {
-      case ScaleType.scale1:
-        state = ScaleType.scale2;
+      case DisplayType.regular:
+        state = DisplayType.detail;
         break;
-      case ScaleType.scale2:
-        state = ScaleType.scale1;
+      case DisplayType.detail:
+        state = DisplayType.regular;
         break;
     }
   }

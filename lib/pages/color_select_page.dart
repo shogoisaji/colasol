@@ -4,7 +4,7 @@ import 'package:colasol/animations/grab_animation.dart';
 import 'package:colasol/animations/appear_animation.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/color_hsv.dart';
-import 'package:colasol/model/scale_type.dart';
+import 'package:colasol/model/display_type.dart';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/widgets/light_mode_button.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +38,17 @@ class ColorSelectPage extends HookConsumerWidget {
     const double margin = 2;
 
     Color createColor(
-      ScaleType scaleType,
+      DisplayType scaleType,
       int x,
       int y,
     ) {
       bool isLightMode = ref.watch(lightModeProvider);
       Color tappedColor = ref.watch(tappedColorProvider);
       switch (scaleType) {
-        case ScaleType.scale1:
+        case DisplayType.regular:
           return ColorHelper().coordinateToColor(
-              360 * x / maxHorizontal * ScaleType.scale1.scaleRateValue,
-              y / maxVertical * ScaleType.scale1.scaleRateValue,
-              isLightMode);
-        case ScaleType.scale2:
+              360 * x / maxHorizontal, y / maxVertical, isLightMode);
+        case DisplayType.detail:
           return ColorHelper()
               .getDetailColor(x, y, maxHorizontal, maxVertical, tappedColor);
       }
@@ -84,7 +82,7 @@ class ColorSelectPage extends HookConsumerWidget {
                             ref.read(scaleStateProvider.notifier).changeScale();
                             ref.read(tapStateProvider.notifier).tapped();
                             if (ref.watch(scaleStateProvider) ==
-                                ScaleType.scale2) {
+                                DisplayType.detail) {
                               animationController.forward();
                               animationController.addStatusListener((status) {
                                 if (status == AnimationStatus.completed) {
