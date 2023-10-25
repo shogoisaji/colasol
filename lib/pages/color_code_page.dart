@@ -88,9 +88,12 @@ class ColorCodePage extends ConsumerWidget {
                                 color: selectedColor,
                                 child: Center(
                                     child: SelectableText(
-                                        selectedColor.value.toRadixString(16)
-                                        // .substring(2),
-                                        )),
+                                  selectedColor.value.toRadixString(16) == '0'
+                                      ? '000000'
+                                      : selectedColor.value
+                                          .toRadixString(16)
+                                          .substring(2),
+                                )),
                               ),
                             );
                           },

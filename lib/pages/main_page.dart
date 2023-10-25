@@ -1,3 +1,4 @@
+import 'package:colasol/animations/select_target_animation.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/color_model.dart';
 import 'package:colasol/model/original_coordinate.dart';
@@ -28,13 +29,13 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _pageViewController = PageController();
+    final pageViewController = PageController();
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: ref.watch(bottomNavigationBarIndexProvider),
         onTap: (int index) {
           ref.read(bottomNavigationBarIndexProvider.notifier).setIndex(index);
-          _pageViewController.animateToPage(index,
+          pageViewController.animateToPage(index,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeOut);
         },
@@ -101,7 +102,7 @@ class MainPage extends ConsumerWidget {
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 60,
+                      height: 65,
                       color: ref.watch(lightModeProvider)
                           ? Colors.black
                           : Colors.white,
@@ -109,91 +110,69 @@ class MainPage extends ConsumerWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
                           itemBuilder: (context, index) {
-                            return DragTarget(
-                              onAccept: (Color color) {
-                                ref
-                                    .read(selectedColorsProvider.notifier)
-                                    .setColor('color${index + 1}', color);
-                              },
-                              builder: (context, candidateData, rejectedData) =>
-                                  Container(
-                                width: MediaQuery.of(context).size.width / 5,
-                                decoration: BoxDecoration(
-                                  border: Border.symmetric(
-                                      horizontal: BorderSide(
-                                          width: 1,
-                                          color: ref.watch(lightModeProvider)
-                                              ? Colors.white
-                                              : Colors.black.withOpacity(0.8)),
-                                      vertical: BorderSide(
-                                          width: 0.5,
-                                          color: ref.watch(lightModeProvider)
-                                              ? Colors.white
-                                              : Colors.black.withOpacity(0.8))),
-                                  color: ref.watch(selectedColorsProvider)[
-                                      'color${index + 1}'],
-                                ),
-                                child: Align(
-                                    alignment: const Alignment(0.7, 0.5),
-                                    child: Transform.rotate(
-                                      angle: -0.2,
-                                      child: Text(
-                                        'color${index + 1}',
-                                        style: TextStyle(
-                                          color: ref.watch(lightModeProvider)
-                                              ? Colors.white
-                                              : Colors.black,
-                                          // fontSize: 20,
-                                          // fontWeight: FontWeight.bold,
+                            return SelectTargetAnimation(
+                              child: DragTarget(
+                                onAccept: (Color color) {
+                                  ref
+                                      .read(selectedColorsProvider.notifier)
+                                      .setColor('color${index + 1}', color);
+                                },
+                                builder:
+                                    (context, candidateData, rejectedData) =>
+                                        Container(
+                                  height: 60,
+                                  width: MediaQuery.of(context).size.width / 5,
+                                  decoration: BoxDecoration(
+                                    border: Border.symmetric(
+                                        horizontal: BorderSide(
+                                            width: 1,
+                                            color: ref.watch(lightModeProvider)
+                                                ? Colors.white
+                                                : Colors.black
+                                                    .withOpacity(0.8)),
+                                        vertical: BorderSide(
+                                            width: 0.5,
+                                            color: ref.watch(lightModeProvider)
+                                                ? Colors.white
+                                                : Colors.black
+                                                    .withOpacity(0.8))),
+                                    color: ref.watch(selectedColorsProvider)[
+                                        'color${index + 1}'],
+                                  ),
+                                  child: Align(
+                                      alignment: const Alignment(0.7, 0.5),
+                                      child: Transform.rotate(
+                                        angle: -0.2,
+                                        child: Text(
+                                          'color${index + 1}',
+                                          style: TextStyle(
+                                            color: ref.watch(lightModeProvider)
+                                                ? Colors.white
+                                                : Colors.black,
+                                            // fontSize: 20,
+                                            // fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    )),
+                                      )),
+                                ),
                               ),
                             );
                           }),
                     ),
                   ),
-                  // Expanded(
-                  //   child: InkWell(
-                  //     onTap: () {
-                  //       ref.read(lightModeProvider.notifier).changeMode();
-                  //     },
-                  //     child: Container(
-                  //         height: 60,
-                  //         alignment: Alignment.center,
-                  //         decoration: BoxDecoration(
-                  //           border: Border.symmetric(
-                  //               horizontal: BorderSide(
-                  //                   width: 1,
-                  //                   color: ref.watch(lightModeProvider)
-                  //                       ? Colors.black.withOpacity(0.2)
-                  //                       : Colors.black.withOpacity(0.8)),
-                  //               vertical: BorderSide(
-                  //                   width: 0.5,
-                  //                   color: ref.watch(lightModeProvider)
-                  //                       ? Colors.black.withOpacity(0.2)
-                  //                       : Colors.black.withOpacity(0.8))),
-                  //           color: ref.watch(lightModeProvider)
-                  //               ? Colors.blue[100]
-                  //               : Colors.blueGrey[900],
-                  //         ),
-                  //         child: ref.watch(lightModeProvider)
-                  //             ? const Icon(Icons.sunny,
-                  //                 color: Colors.orange, size: 40)
-                  //             : const Icon(Icons.nightlight_round_sharp,
-                  //                 color: Colors.yellow, size: 40)),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
             Expanded(
-              child: PageView(controller: _pageViewController, children: [
-                RandomPage(),
-                ColorSelectPage(),
-                ColorCheckPage(),
-                ColorCodePage(),
-              ]),
+              child: PageView(
+                  controller: pageViewController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    RandomPage(),
+                    ColorSelectPage(),
+                    ColorCheckPage(),
+                    ColorCodePage(),
+                  ]),
             ),
           ],
         ),

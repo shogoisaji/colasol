@@ -8,123 +8,105 @@ import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
 import 'package:colasol/widgets/light_mode_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RandomPage extends ConsumerStatefulWidget {
-  RandomPage({Key? key}) : super(key: key);
-
-  @override
-  _RandomPageState createState() => _RandomPageState();
-}
-
-class _RandomPageState extends ConsumerState<RandomPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  bool lightMode = true;
+class RandomPage extends HookConsumerWidget {
+  RandomPage({super.key});
 
   final int count = maxRandomHorizontal * maxRandomVertical;
 
-  late List<Map<String, dynamic>> randomObjectArray;
-
-  void setRandomArray() {
-    randomObjectArray = List.generate(
-        maxRandomHorizontal * maxRandomVertical,
-        (index) => RandomColorObject(
-              index: index,
-              lightMode: lightMode,
-            ).getObject());
-    randomObjectArray.shuffle();
-    debugPrint(lightMode.toString());
-
-    Future.microtask(() => ref
-        .read(randomColorObjectArrayProvider.notifier)
-        .setArray(randomObjectArray));
-  }
-
   @override
-  void initState() {
-    super.initState();
-    setRandomArray();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final animationController = useAnimationController(
+      duration: const Duration(milliseconds: 400),
     );
-    _controller.forward();
-  }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+    void setRandomArray() {
+      List<Map<String, dynamic>> generateArray = List.generate(
+          maxRandomHorizontal * maxRandomVertical,
+          (index) => RandomColorObject(
+                index: index,
+                lightMode: ref.read(lightModeProvider),
+              ).getObject());
+      generateArray.shuffle();
 
-  @override
-  Widget build(BuildContext context) {
+      Future.microtask(() => ref
+          .read(randomColorObjectArrayProvider.notifier)
+          .setArray(generateArray));
+    }
+
+    useEffect(() {
+      setRandomArray();
+      animationController.forward();
+      return () {};
+    }, [ref.watch(lightModeProvider), ref.watch(randomShuffleProvider)]);
+
+    final List<Map<String, dynamic>> randomObjectArray =
+        ref.watch(randomColorObjectArrayProvider);
+
     return Container(
       width: double.infinity,
       height: double.infinity,
       color: ref.watch(lightModeProvider) ? Colors.black : Colors.white,
       child: Stack(
         children: [
-          for (int i = 0; i < count; i++) ...{
-            Align(
-                alignment: Alignment(
-                    randomObjectArray[i]['x'], randomObjectArray[i]['y']),
-                child: DropAnimation(
-                    controller: _controller,
-                    child: Draggable(
-                      data: randomObjectArray[i]['color'] as Color,
-                      feedback: DragAnimation(
+          if (randomObjectArray.isNotEmpty)
+            for (int i = 0; i < count; i++) ...{
+              Align(
+                  alignment: Alignment(
+                      randomObjectArray[i]['x'], randomObjectArray[i]['y']),
+                  child: DropAnimation(
+                      controller: animationController,
+                      child: Draggable(
+                        data: randomObjectArray[i]['color'] as Color,
+                        feedback: DragAnimation(
+                          child: SizedBox(
+                            width: 100,
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(300),
+                                  color: randomObjectArray[i]['color'] as Color,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         child: SizedBox(
-                          width: 100,
+                          width: MediaQuery.of(context).size.width /
+                                  maxRandomHorizontal +
+                              Random().nextDouble() * 100,
                           child: AspectRatio(
                             aspectRatio: 1,
                             child: Container(
                               decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 1.0,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
                                 borderRadius: BorderRadius.circular(300),
                                 color: randomObjectArray[i]['color'] as Color,
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width /
-                                maxRandomHorizontal +
-                            Random().nextDouble() * 100,
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  spreadRadius: 1.0,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(300),
-                              color: randomObjectArray[i]['color'] as Color,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )))
-          },
+                      )))
+            },
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    setRandomArray();
-                    _controller.reset();
-                    _controller.forward();
-                  });
+                  animationController.reset();
+                  ref.read(randomShuffleProvider.notifier).shuffle();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: MyTheme.blueGrey,
@@ -147,13 +129,9 @@ class _RandomPageState extends ConsumerState<RandomPage>
                 padding: const EdgeInsets.all(16.0),
                 child: InkWell(
                   onTap: () {
+                    animationController.reset();
                     ref.read(lightModeProvider.notifier).changeMode();
-                    setState(() {
-                      lightMode = ref.watch(lightModeProvider);
-                      setRandomArray();
-                      _controller.reset();
-                      _controller.forward();
-                    });
+                    ref.read(randomShuffleProvider.notifier).shuffle();
                   },
                   child: const LightModeButton(),
                 )),

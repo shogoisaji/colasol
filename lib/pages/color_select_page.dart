@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:colasol/animations/drop_animation.dart';
 import 'package:colasol/animations/grab_animation.dart';
 import 'package:colasol/animations/appear_animation.dart';
 import 'package:colasol/config/config.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ColorSelectPage extends HookConsumerWidget {
-  ColorSelectPage({super.key});
+  const ColorSelectPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,10 +22,18 @@ class ColorSelectPage extends HookConsumerWidget {
     final int maxVertical =
         (MediaQuery.of(context).size.height - 150) ~/ itemSize;
     final animationController = useAnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 500),
+    );
+    final dropAnimationController = useAnimationController(
+      duration: const Duration(milliseconds: 500),
     );
 
-    Animatable<double> _animatable = Tween<double>(
+    useEffect(() {
+      dropAnimationController.forward();
+      return () {};
+    }, [ref.watch(lightModeProvider)]);
+
+    Animatable<double> animatable = Tween<double>(
       begin: 0.0,
       end: 1.0,
     ).chain(
@@ -33,7 +42,7 @@ class ColorSelectPage extends HookConsumerWidget {
       ),
     );
 
-    Animation<double> _tapAnimation = _animatable.animate(animationController);
+    Animation<double> tapAnimation = animatable.animate(animationController);
 
     const double margin = 2;
 
@@ -52,12 +61,6 @@ class ColorSelectPage extends HookConsumerWidget {
           return ColorHelper()
               .getDetailColor(x, y, maxHorizontal, maxVertical, tappedColor);
       }
-    }
-
-    Map<String, int> getStartCoordinate() {
-      int startX = ref.watch(selectedCoordinateProvider)['x'] as int;
-      int startY = ref.watch(selectedCoordinateProvider)['y'] as int;
-      return {'x': startX, 'y': startY};
     }
 
     return Container(
@@ -117,8 +120,8 @@ class ColorSelectPage extends HookConsumerWidget {
                                   ),
                                 ),
                               )),
-                              child: AppearAnimation(
-                                  delay: Random().nextDouble(),
+                              child: DropAnimation(
+                                  controller: dropAnimationController,
                                   child: SizedBox(
                                     width: itemSize,
                                     child: AspectRatio(
@@ -143,11 +146,11 @@ class ColorSelectPage extends HookConsumerWidget {
             ],
           ),
           IgnorePointer(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: AnimatedBuilder(
-                  animation: _tapAnimation,
+                  animation: tapAnimation,
                   builder: (context, child) {
                     return Transform.translate(
                         offset: Offset(
@@ -184,6 +187,7 @@ class ColorSelectPage extends HookConsumerWidget {
               padding: const EdgeInsets.all(16.0),
               child: InkWell(
                   onTap: () {
+                    dropAnimationController.reset();
                     ref.read(lightModeProvider.notifier).changeMode();
                   },
                   child: const LightModeButton()),
