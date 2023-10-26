@@ -9,17 +9,16 @@ class SelectTargetAnimation extends StatelessWidget {
 
   SelectTargetAnimation({super.key, required this.child});
 
-  final scaleX = MovieTweenProperty<double>();
   final scaleY = MovieTweenProperty<double>();
 
   @override
   Widget build(BuildContext context) {
     final tween = MovieTween()
-      ..tween(scaleY, 5.0.tweenTo(0.0),
-          duration: (Random().nextInt(1000) + 1000).milliseconds,
-          curve: Curves.easeIn);
+      ..tween(scaleY, 2.0.tweenTo(9.0),
+          duration: (Random().nextInt(1000) + 1500).milliseconds,
+          curve: Curves.easeOut);
 
-    return LoopAnimationBuilder<Movie>(
+    return MirrorAnimationBuilder<Movie>(
       duration: tween.duration,
       tween: tween,
       builder: (context, value, child) {

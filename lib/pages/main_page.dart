@@ -102,10 +102,14 @@ class MainPage extends ConsumerWidget {
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 65,
-                      color: ref.watch(lightModeProvider)
-                          ? Colors.black
-                          : Colors.white,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        color: MyTheme.blueGrey,
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 2,
+                                color: Colors.black.withOpacity(0.3))),
+                      ),
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 5,
@@ -119,41 +123,42 @@ class MainPage extends ConsumerWidget {
                                 },
                                 builder:
                                     (context, candidateData, rejectedData) =>
-                                        Container(
-                                  height: 60,
-                                  width: MediaQuery.of(context).size.width / 5,
-                                  decoration: BoxDecoration(
-                                    border: Border.symmetric(
-                                        horizontal: BorderSide(
-                                            width: 1,
-                                            color: ref.watch(lightModeProvider)
-                                                ? Colors.white
-                                                : Colors.black
-                                                    .withOpacity(0.8)),
-                                        vertical: BorderSide(
-                                            width: 0.5,
-                                            color: ref.watch(lightModeProvider)
-                                                ? Colors.white
-                                                : Colors.black
-                                                    .withOpacity(0.8))),
-                                    color: ref.watch(selectedColorsProvider)[
-                                        'color${index + 1}'],
-                                  ),
-                                  child: Align(
-                                      alignment: const Alignment(0.7, 0.5),
-                                      child: Transform.rotate(
-                                        angle: -0.2,
-                                        child: Text(
-                                          'color${index + 1}',
-                                          style: TextStyle(
-                                            color: ref.watch(lightModeProvider)
-                                                ? Colors.white
-                                                : Colors.black,
-                                            // fontSize: 20,
-                                            // fontWeight: FontWeight.bold,
+                                        Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Container(
+                                    height: 60,
+                                    width:
+                                        MediaQuery.of(context).size.width / 5 -
+                                            2,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 1),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: ref.watch(lightModeProvider)
+                                              ? Colors.white
+                                              : Colors.black.withOpacity(0.8)),
+                                      color: ref.watch(selectedColorsProvider)[
+                                          'color${index + 1}'],
+                                    ),
+                                    child: Align(
+                                        alignment: const Alignment(0.7, 0.5),
+                                        child: Transform.rotate(
+                                          angle: -0.2,
+                                          child: Text(
+                                            'color${index + 1}',
+                                            style: TextStyle(
+                                              color:
+                                                  ref.watch(lightModeProvider)
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                              // fontSize: 20,
+                                              // fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                      )),
+                                        )),
+                                  ),
                                 ),
                               ),
                             );
