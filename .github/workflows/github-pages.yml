@@ -23,7 +23,11 @@ jobs:
           cache: true
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter build web --web-renderer html --base-href /colasol/ --title "Colasol"
+      - run: flutter build web --web-renderer html --base-href /colasol/
+      - run: |
+          echo "<title>Colasol</title>" >> build/web/index.html
+      - run: |
+          echo "name: Colasol" >> FlutterWebManifest.yaml
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
