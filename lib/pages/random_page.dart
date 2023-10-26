@@ -54,11 +54,11 @@ class RandomPage extends HookConsumerWidget {
         children: [
           if (randomObjectArray.isNotEmpty)
             for (int i = 0; i < count; i++) ...{
-              Align(
-                  alignment: Alignment(
-                      randomObjectArray[i]['x'], randomObjectArray[i]['y']),
-                  child: DropAnimation(
-                      controller: animationController,
+              DropAnimation(
+                  controller: animationController,
+                  child: Align(
+                      alignment: Alignment(
+                          randomObjectArray[i]['x'], randomObjectArray[i]['y']),
                       child: Draggable(
                         data: randomObjectArray[i]['color'] as Color,
                         feedback: DragAnimation(

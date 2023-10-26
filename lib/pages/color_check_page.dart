@@ -3,67 +3,78 @@ import 'dart:math';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ColorCheckPage extends ConsumerStatefulWidget {
-  ColorCheckPage({Key? key}) : super(key: key);
+class ColorCheckPage extends HookConsumerWidget {
+  const ColorCheckPage({Key? key}) : super(key: key);
 
   @override
-  _ColorCheckPageState createState() => _ColorCheckPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int itemCount = MediaQuery.of(context).size.width > 800 ? 15 : 10;
 
-class _ColorCheckPageState extends ConsumerState<ColorCheckPage> {
-  List<Widget> _buildColorContainers(WidgetRef ref) {
-    return List.generate(5, (index) {
-      return Align(
-        alignment: Alignment(
-            2 * Random().nextDouble() - 1, 2 * Random().nextDouble() - 1),
-        child: Transform.rotate(
-          angle: 2 * pi * Random().nextDouble(),
-          child: Container(
-              width: 100 + 200 * Random().nextDouble(),
-              height: 200 + 200 * Random().nextDouble(),
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(8 + 80 * Random().nextDouble()),
-                color:
-                    ref.watch(selectedColorsProvider)['color${index % 5 + 1}'],
-              )),
-        ),
-      );
-    });
-  }
+    final shuffleContainer = useState<List<Widget>>([]);
+    final shuffleTextObject = useState<List<Widget>>([]);
 
-  List<Widget> _buildColorText(WidgetRef ref) {
-    return List.generate(5, (index) {
-      return Align(
+    void objectShuffle() {
+      List<Widget> generateShuffleContainer = List.generate(itemCount, (index) {
+        return Align(
           alignment: Alignment(
               2 * Random().nextDouble() - 1, 2 * Random().nextDouble() - 1),
           child: Transform.rotate(
-              angle: 2 * pi * Random().nextDouble(),
-              child: Text(
-                'Color',
-                style: TextStyle(
-                    color: ref
-                        .watch(selectedColorsProvider)['color${index % 5 + 1}'],
-                    fontSize: 48 + 48 * Random().nextDouble(),
-                    fontWeight: FontWeight.bold),
-              )));
-    });
-  }
+            angle: 2 * pi * Random().nextDouble(),
+            child: Container(
+                width: 100 + 200 * Random().nextDouble(),
+                height: 200 + 200 * Random().nextDouble(),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(8 + 80 * Random().nextDouble()),
+                  color: ref
+                      .watch(selectedColorsProvider)['color${index % 5 + 1}'],
+                )),
+          ),
+        );
+      });
 
-  @override
-  Widget build(BuildContext context) {
+      List<Widget> generateShuffleTextObject =
+          List.generate(itemCount - 5, (index) {
+        return Align(
+            alignment: Alignment(
+                2 * Random().nextDouble() - 1, 2 * Random().nextDouble() - 1),
+            child: Transform.rotate(
+                angle: 2 * pi * Random().nextDouble(),
+                child: Text(
+                  'Color',
+                  style: TextStyle(
+                      color: ref.watch(
+                          selectedColorsProvider)['color${index % 5 + 1}'],
+                      fontSize: 72 + 72 * Random().nextDouble(),
+                      fontWeight: FontWeight.bold),
+                )));
+      });
+
+      final newShuffleContainer = generateShuffleContainer;
+      final newShuffleTextObject = generateShuffleTextObject;
+      shuffleContainer.value = newShuffleContainer;
+      shuffleTextObject.value = newShuffleTextObject;
+    }
+
+    useEffect(() {
+      objectShuffle();
+      return () {};
+    }, [ref.watch(randomShuffleProvider)]);
+
     return Stack(children: [
-      ..._buildColorContainers(ref),
-      ..._buildColorText(ref),
+      ...shuffleContainer.value,
+      ...shuffleTextObject.value,
       Align(
         alignment: Alignment.bottomRight,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: () {
-              setState(() {});
+              ref.read(randomShuffleProvider.notifier).shuffle();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: MyTheme.blueGrey,
