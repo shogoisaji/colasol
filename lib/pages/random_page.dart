@@ -62,14 +62,24 @@ class RandomPage extends HookConsumerWidget {
                       child: Draggable(
                         data: randomObjectArray[i]['color'] as Color,
                         feedback: DragAnimation(
-                          child: SizedBox(
-                            width: 100,
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(300),
-                                  color: randomObjectArray[i]['color'] as Color,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width /
+                                    maxRandomHorizontal +
+                                50,
+                            height: MediaQuery.of(context).size.width /
+                                    maxRandomHorizontal +
+                                50,
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 100,
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(300),
+                                    color:
+                                        randomObjectArray[i]['color'] as Color,
+                                  ),
                                 ),
                               ),
                             ),
