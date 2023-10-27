@@ -1,3 +1,4 @@
+import 'package:colasol/model/color_hsv.dart';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
 import 'package:flutter/material.dart';
@@ -82,12 +83,18 @@ class ColorCodePage extends ConsumerWidget {
                             Color selectedColor = ref.watch(
                                     selectedColorsProvider)['color${index + 1}']
                                 as Color;
+
                             return Align(
                               child: Container(
                                 height: 50,
                                 color: selectedColor,
                                 child: Center(
                                     child: SelectableText(
+                                  style: TextStyle(
+                                      color: ColorHelper()
+                                              .isDarkColor(selectedColor)
+                                          ? Colors.white
+                                          : Colors.black),
                                   selectedColor.value.toRadixString(16) == '0'
                                       ? '000000'
                                       : selectedColor.value
@@ -187,6 +194,11 @@ class ColorCodePage extends ConsumerWidget {
                                 color: selectedColor,
                                 child: Center(
                                   child: SelectableText(
+                                    style: TextStyle(
+                                        color: ColorHelper()
+                                                .isDarkColor(selectedColor)
+                                            ? Colors.white
+                                            : Colors.black),
                                     '(${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
                                   ),
                                 )),

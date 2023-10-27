@@ -48,4 +48,8 @@ class ColorHelper {
     double value = HSVColor.fromColor(color).value;
     return {'hue': hue, 'saturation': saturation, 'value': value};
   }
+
+  bool isDarkColor(Color color) {
+    return colorToHSV(color)['value'] as double < 0.5;
+  }
 }
