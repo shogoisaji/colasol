@@ -15,7 +15,7 @@ class RandomObjectAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tween = MovieTween()
-      ..tween(scaleY, 0.0.tweenTo(13.0),
+      ..tween(scaleY, 0.0.tweenTo(10.0),
           duration: (Random().nextInt(2000) + 2000).milliseconds,
           curve: Curves.easeIn)
       ..tween(scaleX, 0.0.tweenTo(5.0),

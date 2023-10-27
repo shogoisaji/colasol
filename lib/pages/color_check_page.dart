@@ -14,21 +14,18 @@ class ColorCheckPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int itemCount = MediaQuery.of(context).size.width > 800 ? 15 : 10;
-
-    // final shuffleContainer = useState<List<Widget>>([]);
-    // final textObjectList = useState<List<TextObject>>([]);
-
+    var list = ref.watch(textObjectListProvider)[0].x;
     void setTextObject() {
       List<TextObject> generateTextObject =
           List.generate(selectTargetCount, (index) {
         return TextObject(
-          text: 'Color${index + 1}',
-          color: ref.watch(selectedColorsProvider)[
-              'color${index % selectTargetCount + 1}'] as Color,
-          x: MediaQuery.of(context).size.width / 2 -
-              200 +
-              Random().nextDouble() * 100,
+          widget: Text('Color${index + 1}',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 54 + Random().nextDouble() * 54,
+                  color: ref.watch(selectedColorsProvider)[
+                      'color${index % selectTargetCount + 1}'] as Color)),
+          x: Random().nextDouble() * (MediaQuery.of(context).size.width - 200),
           y: (index) *
                   (MediaQuery.of(context).size.height - 200) /
                   selectTargetCount +
@@ -36,7 +33,6 @@ class ColorCheckPage extends HookConsumerWidget {
         );
       });
       ref.watch(textObjectListProvider.notifier).setList(generateTextObject);
-      // textObjectList.value = generateTextObject;
     }
 
     useEffect(() {
@@ -45,12 +41,27 @@ class ColorCheckPage extends HookConsumerWidget {
         setTextObject();
       });
       return () {};
-    }, []);
+    }, [ref.watch(randomShuffleProvider)]);
+
+    useEffect(() {
+      debugPrint('useEffect');
+      return null;
+    }, [list]);
 
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Stack(children: [
+        Center(
+          child: Transform.rotate(
+            angle: -pi / 6,
+            child: Text('Check\n Color',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 96,
+                    color: Colors.black.withOpacity(0.04))),
+          ),
+        ),
         Row(
           children: List.generate(5, (index) {
             return Expanded(
@@ -61,16 +72,19 @@ class ColorCheckPage extends HookConsumerWidget {
                 ));
           }),
         ),
-        // ...shuffleContainer.value,
         ...List.generate(5, (index) {
           return Positioned(
             top: ref.watch(textObjectListProvider)[index].y,
             left: ref.watch(textObjectListProvider)[index].x,
-            child: Text(ref.watch(textObjectListProvider)[index].text,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 36 + Random().nextDouble() * 36,
-                    color: ref.watch(textObjectListProvider)[index].color)),
+            child: Draggable(
+              data: index,
+              childWhenDragging: Container(),
+              feedback: Material(
+                color: Colors.transparent,
+                child: ref.watch(textObjectListProvider)[index].widget,
+              ),
+              child: ref.watch(textObjectListProvider)[index].widget,
+            ),
           );
         }),
         Align(

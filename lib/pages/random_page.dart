@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:colasol/animations/drop_animation.dart';
-import 'package:colasol/animations/grab_animation.dart';
+import 'package:colasol/animations/drag_animation.dart';
 import 'package:colasol/animations/random_object_animation%20.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/randomColorObject.dart';

@@ -8,7 +8,6 @@ class OnceScaleUpAnimation extends StatelessWidget {
   OnceScaleUpAnimation({required this.child});
 
   final scaleX = MovieTweenProperty<double>();
-  final scaleY = MovieTweenProperty<double>();
 
   @override
   Widget build(BuildContext context) {
