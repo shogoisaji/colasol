@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TextObject {
-  String text;
-  Color color;
+  Widget widget;
   double x;
   double y;
 
   TextObject({
-    required this.text,
-    required this.color,
+    required this.widget,
     required this.x,
     required this.y,
   });

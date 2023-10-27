@@ -1,5 +1,5 @@
 import 'package:colasol/animations/drop_animation.dart';
-import 'package:colasol/animations/grab_animation.dart';
+import 'package:colasol/animations/drag_animation.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/color_hsv.dart';
 import 'package:colasol/model/display_type.dart';

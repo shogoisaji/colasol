@@ -125,32 +125,27 @@ class textObjectList extends _$textObjectList {
   @override
   List<TextObject> build() => [
         TextObject(
-          text: 'Color1',
-          color: Colors.red,
+          widget: const Text('Color1'),
           x: 0,
           y: 0,
         ),
         TextObject(
-          text: 'Color2',
-          color: Colors.red,
+          widget: const Text('Color2'),
           x: 0,
           y: 0,
         ),
         TextObject(
-          text: 'Color3',
-          color: Colors.red,
+          widget: const Text('Color3'),
           x: 0,
           y: 0,
         ),
         TextObject(
-          text: 'Color4',
-          color: Colors.red,
+          widget: const Text('Color4'),
           x: 0,
           y: 0,
         ),
         TextObject(
-          text: 'Color5',
-          color: Colors.red,
+          widget: const Text('Color5'),
           x: 0,
           y: 0,
         ),

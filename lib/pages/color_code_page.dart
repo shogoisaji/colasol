@@ -2,8 +2,8 @@ import 'package:colasol/model/color_hsv.dart';
 import 'package:colasol/state/state.dart';
 import 'package:colasol/theme/color_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ColorCodePage extends ConsumerWidget {
   const ColorCodePage({super.key});
@@ -16,9 +16,25 @@ class ColorCodePage extends ConsumerWidget {
       for (Color color in selectedColors.values) {
         shareText = '$shareText$color\n';
       }
-      Share.share(
-        shareText,
-      );
+      Clipboard.setData(ClipboardData(text: shareText));
+      // snack bar
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.copy,
+              color: Colors.white,
+            ),
+            Text(
+              'Copy',
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+          ],
+        ),
+        duration: const Duration(seconds: 1),
+        backgroundColor: MyTheme.blue,
+      ));
     }
 
     void onShareRGB(BuildContext context) {
@@ -28,8 +44,26 @@ class ColorCodePage extends ConsumerWidget {
         String rgb = '(${color.red},${color.green},${color.blue})';
         shareText = '$shareText$rgb\n';
       }
-      Share.share(
-        shareText,
+      Clipboard.setData(ClipboardData(text: shareText));
+      // snack bar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.copy,
+                color: Colors.white,
+              ),
+              Text(
+                'Copy',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ],
+          ),
+          duration: const Duration(seconds: 1),
+          backgroundColor: MyTheme.blue,
+        ),
       );
     }
 
