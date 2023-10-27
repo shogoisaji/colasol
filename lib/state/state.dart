@@ -1,4 +1,5 @@
 import 'package:colasol/model/display_type.dart';
+import 'package:colasol/model/text_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -117,4 +118,47 @@ class randomColorObjectArray extends _$randomColorObjectArray {
   List<Map<String, dynamic>> build() => [];
 
   void setArray(List<Map<String, dynamic>> array) => state = array;
+}
+
+@riverpod
+class textObjectList extends _$textObjectList {
+  @override
+  List<TextObject> build() => [
+        TextObject(
+          text: 'Color1',
+          color: Colors.red,
+          x: 0,
+          y: 0,
+        ),
+        TextObject(
+          text: 'Color2',
+          color: Colors.red,
+          x: 0,
+          y: 0,
+        ),
+        TextObject(
+          text: 'Color3',
+          color: Colors.red,
+          x: 0,
+          y: 0,
+        ),
+        TextObject(
+          text: 'Color4',
+          color: Colors.red,
+          x: 0,
+          y: 0,
+        ),
+        TextObject(
+          text: 'Color5',
+          color: Colors.red,
+          x: 0,
+          y: 0,
+        ),
+      ];
+
+  void setList(List<TextObject> list) => state = list;
+
+  void changeIndex(TextObject textObject, int index) {
+    state[index] = textObject;
+  }
 }

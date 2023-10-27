@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:colasol/animations/drop_animation.dart';
 import 'package:colasol/animations/grab_animation.dart';
+import 'package:colasol/animations/random_object_animation%20.dart';
 import 'package:colasol/config/config.dart';
 import 'package:colasol/model/randomColorObject.dart';
 import 'package:colasol/state/state.dart';
@@ -56,58 +57,60 @@ class RandomPage extends HookConsumerWidget {
             for (int i = 0; i < count; i++) ...{
               DropAnimation(
                   controller: animationController,
-                  child: Align(
-                      alignment: Alignment(
-                          randomObjectArray[i]['x'], randomObjectArray[i]['y']),
-                      child: Draggable(
-                        data: randomObjectArray[i]['color'] as Color,
-                        feedback: DragAnimation(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width /
-                                    maxRandomHorizontal +
-                                50,
-                            height: MediaQuery.of(context).size.width /
-                                    maxRandomHorizontal +
-                                50,
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                              width: 100,
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(300),
-                                    color:
-                                        randomObjectArray[i]['color'] as Color,
+                  child: RandomObjectAnimation(
+                    child: Align(
+                        alignment: Alignment(randomObjectArray[i]['x'],
+                            randomObjectArray[i]['y']),
+                        child: Draggable(
+                          data: randomObjectArray[i]['color'] as Color,
+                          feedback: DragAnimation(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width /
+                                      maxRandomHorizontal +
+                                  50,
+                              height: MediaQuery.of(context).size.width /
+                                      maxRandomHorizontal +
+                                  50,
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                width: 100,
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(300),
+                                      color: randomObjectArray[i]['color']
+                                          as Color,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width /
-                                  maxRandomHorizontal +
-                              Random().nextDouble() * 100,
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 1.0,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(300),
-                                color: randomObjectArray[i]['color'] as Color,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width /
+                                    maxRandomHorizontal +
+                                Random().nextDouble() * 100,
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(300),
+                                  color: randomObjectArray[i]['color'] as Color,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )))
+                        )),
+                  ))
             },
           Align(
             alignment: Alignment.bottomRight,

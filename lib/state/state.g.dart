@@ -39,7 +39,7 @@ final bottomNavigationBarIndexProvider =
 );
 
 typedef _$bottomNavigationBarIndex = AutoDisposeNotifier<int>;
-String _$scaleStateHash() => r'8f563ccb809d3c5d19b79de1e1c383b2f3b0e5ea';
+String _$scaleStateHash() => r'34313f3930e757f4532698a0ea9ef4b0d4229a53';
 
 /// See also [scaleState].
 @ProviderFor(scaleState)
@@ -180,5 +180,21 @@ final randomColorObjectArrayProvider = AutoDisposeNotifierProvider<
 
 typedef _$randomColorObjectArray
     = AutoDisposeNotifier<List<Map<String, dynamic>>>;
+String _$textObjectListHash() => r'db965cd1b0737197e370e21e7724a2e143f09c34';
+
+/// See also [textObjectList].
+@ProviderFor(textObjectList)
+final textObjectListProvider =
+    AutoDisposeNotifierProvider<textObjectList, List<TextObject>>.internal(
+  textObjectList.new,
+  name: r'textObjectListProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$textObjectListHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$textObjectList = AutoDisposeNotifier<List<TextObject>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
