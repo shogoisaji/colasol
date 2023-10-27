@@ -13,7 +13,7 @@ class DragAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tween = MovieTween()
-      ..tween(scaleX, 1.5.tweenTo(2.2),
+      ..tween(scaleX, 1.0.tweenTo(1.3),
           duration: 700.milliseconds, curve: Curves.easeIn);
 
     return LoopAnimationBuilder<Movie>(

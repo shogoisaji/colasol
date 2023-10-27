@@ -1,3 +1,4 @@
+import 'package:colasol/config/config.dart';
 import 'package:colasol/model/display_type.dart';
 import 'package:colasol/model/text_object.dart';
 import 'package:flutter/material.dart';
@@ -122,34 +123,12 @@ class randomColorObjectArray extends _$randomColorObjectArray {
 
 @riverpod
 class textObjectList extends _$textObjectList {
+  final List<TextObject> initialList = List.generate(selectTargetCount,
+      (index) => TextObject(widget: Container(), x: 0, y: 0));
   @override
-  List<TextObject> build() => [
-        TextObject(
-          widget: const Text('Color1'),
-          x: 0,
-          y: 0,
-        ),
-        TextObject(
-          widget: const Text('Color2'),
-          x: 0,
-          y: 0,
-        ),
-        TextObject(
-          widget: const Text('Color3'),
-          x: 0,
-          y: 0,
-        ),
-        TextObject(
-          widget: const Text('Color4'),
-          x: 0,
-          y: 0,
-        ),
-        TextObject(
-          widget: const Text('Color5'),
-          x: 0,
-          y: 0,
-        ),
-      ];
+  List<TextObject> build() => initialList;
+
+  void reset() => state = initialList;
 
   void setList(List<TextObject> list) => state = list;
 

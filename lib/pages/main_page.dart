@@ -79,6 +79,9 @@ class MainPage extends ConsumerWidget {
                                           color: Colors.white, fontSize: 24)),
                                   onPressed: () {
                                     ref
+                                        .read(textObjectListProvider.notifier)
+                                        .reset();
+                                    ref
                                         .read(selectedColorsProvider.notifier)
                                         .resetColor();
                                     Navigator.of(context).pop();

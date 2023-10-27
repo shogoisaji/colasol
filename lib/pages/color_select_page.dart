@@ -17,7 +17,7 @@ class ColorSelectPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final int maxHorizontal = MediaQuery.of(context).size.width ~/ itemSize;
     final int maxVertical =
-        (MediaQuery.of(context).size.height - 150) ~/ itemSize;
+        (MediaQuery.of(context).size.height - 200) ~/ itemSize;
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 500),
     );

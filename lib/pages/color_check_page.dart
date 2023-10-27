@@ -14,7 +14,6 @@ class ColorCheckPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var list = ref.watch(textObjectListProvider)[0].x;
     void setTextObject() {
       List<TextObject> generateTextObject =
           List.generate(selectTargetCount, (index) {
@@ -42,11 +41,6 @@ class ColorCheckPage extends HookConsumerWidget {
       });
       return () {};
     }, [ref.watch(randomShuffleProvider)]);
-
-    useEffect(() {
-      debugPrint('useEffect');
-      return null;
-    }, [list]);
 
     return SizedBox(
       width: double.infinity,
