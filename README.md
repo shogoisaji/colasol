@@ -1,16 +1,24 @@
-# colasol
+# 👨‍🎨カラーセレクトアプリ
 
-A new Flutter project.
+このアプリは、どのようなカラーが良いか迷っている際に、助けになるカラー選択アプリです。
 
-## Getting Started
+## 📚概要
 
-This project is a starting point for a Flutter application.
+ユーザーはランダム又は、配列からカラーを選択する事が出来る。<br />
+ランダムの場合は、shuffle buttonを押すことでカラーをシャッフルする事が出来る。<br />
+配列の場合は、お好みのカラーをタップするとより詳細のカラーが表示される。<br />
+左下の太陽or月のボタンを押すことで色調が明or暗と変更する。<br />
+お好みのカラーが見つかった際にいは、ドラッグし上部のマスにドロップする事でそのカラーは選択状態となる。<br />
+テストページでカラーの見え方を試せる。<br />
+カラーコードページではカラーコードをHex,RGBで確認できる。<br />
+※webでの共有が正しく動作していません。
 
-A few resources to get you started if this is your first Flutter project:
+## ⛲使用技術
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-ar21.svg">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  
+<br>
+
+[🌐deploy page](https://shogoisaji.github.io/colasol/)  
+powered by GitHub Pages
